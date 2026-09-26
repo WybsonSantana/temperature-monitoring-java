@@ -4,18 +4,10 @@ import io.hypersistence.tsid.TSID;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.OffsetDateTime;
-
 @Data
 @Builder
-public class SensorMonitoringOutput {
-
+public class SensorAlertOutput {
     private TSID id;
-
-    private Double lastTemperature;
-
-    private OffsetDateTime updatedAt;
-
-    private Boolean enabled;
-
+    private Double maxTemperature;
+    private Double minTemperature;
 }
