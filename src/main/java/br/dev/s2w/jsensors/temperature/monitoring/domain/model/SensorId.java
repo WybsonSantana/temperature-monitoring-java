@@ -3,6 +3,7 @@ package br.dev.s2w.jsensors.temperature.monitoring.domain.model;
 import io.hypersistence.tsid.TSID;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,9 +12,9 @@ import java.util.Objects;
 
 @Embeddable
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SensorId implements Serializable {
-
     private TSID value;
 
     public SensorId(TSID value) {

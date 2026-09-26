@@ -17,10 +17,15 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SensorMonitoring {
+
     @Id
     @AttributeOverride(name = "value", column = @Column(name = "id", columnDefinition = "bigint"))
     private SensorId id;
+
     private Double lastTemperature;
+
     private OffsetDateTime updatedAt;
+
     private Boolean enabled;
+
 }
