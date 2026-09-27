@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
+
 @RestController
 @RequestMapping("/api/sensors/{sensorId}/monitoring")
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class SensorMonitoringController {
     public void enable(@PathVariable TSID sensorId) {
         SensorMonitoring sensorMonitoring = findByIdOrDefault(sensorId);
 
-        if (sensorMonitoring.getEnabled())
+        if (Boolean.TRUE.equals(sensorMonitoring.getEnabled()))
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
 
         sensorMonitoring.setEnabled(true);
@@ -44,9 +46,14 @@ public class SensorMonitoringController {
 
     @DeleteMapping("/enable")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void disable(@PathVariable TSID sensorId) {
+    public void disable(@PathVariable TSID sensorId) throws InterruptedException {
         SensorMonitoring sensorMonitoring = findByIdOrDefault(sensorId);
+
+        if (Boolean.FALSE.equals(sensorMonitoring.getEnabled()))
+            Thread.sleep(Duration.ofSeconds(10));
+
         sensorMonitoring.setEnabled(false);
+
         sensorMonitoringRepository.saveAndFlush(sensorMonitoring);
     }
 
